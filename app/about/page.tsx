@@ -70,7 +70,7 @@ export default function AboutPage() {
         <div className="content-grid" style={{ gap: 32 }}>
           <div>
             <p className="section-lead">
-              {SITE_CONFIG.name} Ricky is your gateway to extraordinary journeys
+              {SITE_CONFIG.name} is your gateway to extraordinary journeys
               around the world. We build seamless travel experiences with expert
               planning, local partners, and responsible hospitality.
             </p>
