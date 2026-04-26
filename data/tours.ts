@@ -275,7 +275,7 @@ export const TOURS: Tour[] = [
     ],
     departures: ["May 26, 2026", "May 27, 2026", "May 28, 2026"],
     tag: "Cultural",
-    duration: "5 Days · 4 Nights",
+    duration: "5 Days · 4 Nights --",
     description: "Immerse yourself in the intoxicating colours, aromas, and textures of Morocco. From the labyrinthine medinas of Fes and Marrakech to the infinite silence of the Sahara desert under a billion stars.",
     highlights: [
       "Camel trek in the Sahara Desert",
