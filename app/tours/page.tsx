@@ -1,8 +1,11 @@
 "use client";
 import { useState, type Dispatch, type SetStateAction } from "react";
+import Seo from "@/components/Seo";
+import { SetAlsoSee } from "@/components/seo/SeoContext";
 import Link from "next/link";
 import TourCard from "@/components/TourCard";
 import { TOURS, DESTINATIONS } from "@/data/tours";
+import { SITE_CONFIG } from "@/data/site";
 
 const ACTIVITY_OPTIONS = ["Safari", "Historical", "Wildlife", "Cultural"];
 const TRIP_TYPE_OPTIONS = ["Adventure", "Heritage", "Luxury", "Beach"];
@@ -121,6 +124,22 @@ export default function ToursPage() {
 
   return (
     <>
+      <Seo
+        title={`Tours | ${SITE_CONFIG?.name ?? "India Tour"}`}
+        description={
+          "Browse our curated tours and packaged trips across top destinations. Filter by activity, destination, and price to find your perfect trip."
+        }
+        keywords={[
+          "tours",
+          "book tours",
+          "guided tours",
+          "holiday packages",
+          ...DESTINATIONS.map((d) => d.name),
+        ]}
+      />
+      <SetAlsoSee
+        items={[...DESTINATIONS.map((d) => d.name), ...TAG_OPTIONS]}
+      />
       <div className="page-hero">
         <div
           className="page-hero-bg"

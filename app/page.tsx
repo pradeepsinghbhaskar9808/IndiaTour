@@ -1,10 +1,37 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Seo from "@/components/Seo";
+import { SetAlsoSee } from "@/components/seo/SeoContext";
+import AlsoSee from "@/components/AlsoSee";
 import TourCard from "@/components/TourCard";
 import HeroSearchBar from "@/components/HeroSearchBar";
 import { TOURS, DESTINATIONS, TESTIMONIALS } from "@/data/tours";
 import { SITE_CONFIG } from "@/data/site";
+
+const ALSO_SEE_ITEMS = [
+  "About US",
+  "Holidays",
+  "International Tour Packages",
+  "India Tour Packages",
+  "International Honeymoon Packages",
+  "India Honeymoon Packages",
+  "Flight Booking",
+  "Hotel Booking",
+  "Blog",
+  "Press Room",
+  "Privacy Policy",
+  "Sitemap",
+  "Store Locator",
+  "Terms And Conditions",
+  "International Travel Guideline",
+  "India Travel Guidelines",
+  "Assured Safe Travel Program",
+  "SOTC INDIA",
+  "Corporate Website",
+  "SOTC Android App",
+  "SOTC Travel Ltd.",
+];
 
 const FILTERS = [
   "All Trips",
@@ -126,6 +153,17 @@ export default function HomePage() {
 
   return (
     <>
+      {/* central list used both for footer context and visible homepage section */}
+      <SetAlsoSee
+        items={ALSO_SEE_ITEMS}
+      />
+      <Seo
+        title={`${SITE_CONFIG?.name ?? "India Tour"} - ${SITE_CONFIG?.tagline ?? "Global Tours"}`}
+        description={
+          "Discover world-class travel experiences from trusted agencies around the globe. Book unforgettable tours and adventures."
+        }
+        keywords={["tours", "travel", "book tours", "holiday packages", "top destinations"]}
+      />
       <section className="hero-section">
         <div className="hero-slider" aria-hidden="true">
           {HERO_SLIDES.map((image, index) => (
@@ -330,6 +368,8 @@ export default function HomePage() {
             </button>
           </Link>
         </div>
+
+       
       </section>
 
       <section className="section">
@@ -414,6 +454,10 @@ export default function HomePage() {
             />
           ))}
         </div>
+      </section>
+      <section className="section bg-light-green">
+         {/* Also See section (visible on homepage) */}
+        <AlsoSee items={ALSO_SEE_ITEMS} title="Also See" />
       </section>
     </>
   );

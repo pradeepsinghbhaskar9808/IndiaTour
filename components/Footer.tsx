@@ -1,4 +1,5 @@
-import { SITE_CONFIG } from "@/data/site";
+import { SITE_CONFIG, SITE_OPTIONS } from "@/data/site";
+import { useSeo } from "@/components/seo/SeoContext";
 
 export default function Footer() {
   const quickLinks = [
@@ -23,8 +24,14 @@ export default function Footer() {
     "Greek Islands",
   ];
 
+  const { alsoSee } = useSeo();
+  const fallbackAlso = SITE_OPTIONS.footerAlsoSee || [];
+
+  const items = alsoSee && alsoSee.length > 0 ? alsoSee : fallbackAlso;
+
   return (
     <footer className="footer">
+      
       <div className="footer-grid">
         {/* Brand */}
         <div>
@@ -69,6 +76,8 @@ export default function Footer() {
           ))}
         </div>
 
+      
+
         {/* Newsletter */}
         <div className="footer-col">
           <h5>Newsletter</h5>
@@ -93,7 +102,7 @@ export default function Footer() {
 
       <div className="footer-bottom">
         <span>
-          ©ReactThemes. All Rights Reserved. Design by {SITE_CONFIG.name}
+          ©indiatour.org.in. All Rights Reserved. Design by {SITE_CONFIG.name}
         </span>
         <div className="footer-payments">
           {["VISA", "MC", "PayPal", "Skrill"].map((p) => (

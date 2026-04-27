@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "../styles/globals.css";
 import AppShell from "@/components/AppShell";
-import { SITE_CONFIG } from "@/data/site";
+import { SITE_CONFIG, SITE_OPTIONS } from "@/data/site";
 
 export const metadata: Metadata = {
   title: `${SITE_CONFIG.name} - ${SITE_CONFIG.tagline}`,
@@ -23,6 +23,7 @@ export const metadata: Metadata = {
     "India cultural tour",
     "India heritage tour",
     "India historical tour",
+    ...SITE_OPTIONS.defaultKeywords,
   ],
   openGraph: {
     title: SITE_CONFIG.name,

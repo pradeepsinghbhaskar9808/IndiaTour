@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { AuthProvider } from "@/components/AuthProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { SeoProvider } from "@/components/seo/SeoContext";
 import ScrollTopButton from "@/components/ScrollTopButton";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
@@ -16,10 +17,12 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         <main className="admin-route-main">{children}</main>
       ) : (
         <>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-          <ScrollTopButton />
+          <SeoProvider>
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
+            <ScrollTopButton />
+          </SeoProvider>
         </>
       )}
     </AuthProvider>
