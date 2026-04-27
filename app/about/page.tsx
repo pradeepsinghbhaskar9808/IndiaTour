@@ -1,6 +1,9 @@
+// "use client";
+
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SITE_CONFIG } from "@/data/site";
+import { SetAlsoSee } from "@/components/seo/SeoContext";
 
 export const metadata: Metadata = {
   title: `About Us | ${SITE_CONFIG.name}`,
@@ -44,6 +47,30 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
+      <SetAlsoSee
+        items={[
+          "Holidays",
+          "International Tour Packages",
+          "India Tour Packages",
+          "International Honeymoon Packages",
+          "India Honeymoon Packages",
+          "Flight Booking",
+          "Hotel Booking",
+          "Blog",
+          "Press Room",
+          "Privacy Policy",
+          "Sitemap",
+          "Store Locator",
+          "Terms And Conditions",
+          "International Travel Guideline",
+          "India Travel Guidelines",
+          "Assured Safe Travel Program",
+          "SOTC INDIA",
+          "Corporate Website",
+          "SOTC Android App",
+          "SOTC Travel Ltd.",
+        ]}
+      />
       <div className="page-hero" style={{ height: 280 }}>
         <div
           className="page-hero-bg"

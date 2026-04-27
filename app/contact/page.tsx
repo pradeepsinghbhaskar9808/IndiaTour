@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SITE_CONFIG } from "@/data/site";
+import { SetAlsoSee } from "@/components/seo/SeoContext";
 
 export const metadata: Metadata = {
   title: `Contact Us | ${SITE_CONFIG.name}`,
@@ -43,6 +44,31 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
+      <SetAlsoSee
+        items={[
+          "About US",
+          "Holidays",
+          "International Tour Packages",
+          "India Tour Packages",
+          "International Honeymoon Packages",
+          "India Honeymoon Packages",
+          "Flight Booking",
+          "Hotel Booking",
+          "Blog",
+          "Press Room",
+          "Privacy Policy",
+          "Sitemap",
+          "Store Locator",
+          "Terms And Conditions",
+          "International Travel Guideline",
+          "India Travel Guidelines",
+          "Assured Safe Travel Program",
+          "SOTC INDIA",
+          "Corporate Website",
+          "SOTC Android App",
+          "SOTC Travel Ltd.",
+        ]}
+      />
       <div className="page-hero" style={{ height: 280 }}>
         <div
           className="page-hero-bg"
@@ -105,7 +131,7 @@ export default function ContactPage() {
             <div className="about-card">
               <h3>Contact Details</h3>
               <p>
-                <strong>Email:</strong> support@touriza.com
+                <strong>Email:</strong> support@indiatour.org.in
               </p>
               <p>
                 <strong>Phone:</strong> +1 (800) 123-4567

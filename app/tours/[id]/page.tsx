@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { TOURS } from "@/data/tours";
 import TourBookingWidget from "@/components/TourBookingWidget";
 import TourCard from "@/components/TourCard";
+import AlsoSee from "@/components/AlsoSee";
+import { SetAlsoSee } from "@/components/seo/SeoContext";
 
 export function generateStaticParams() {
   return TOURS.map((tour) => ({ id: tour.slug }));
@@ -73,6 +75,14 @@ export default function TourDetailPage({ params }: TourDetailPageProps) {
   if (!tour) notFound();
 
   const related = TOURS.filter((t) => t.id !== tour.id).slice(0, 3);
+  const seoAlsoItems = [
+    tour.location,
+    tour.country,
+    tour.tag,
+    ...tour.highlights.slice(0, 6),
+  ].filter(Boolean);
+
+  // set also-see items for the footer via client context (client component)
   const mapQuery = encodeURIComponent(`${tour.title}, ${tour.location}`);
   const infoBoxes = [
     { icon: "GS", label: "Group Size", value: tour.info.groupSize },
@@ -112,6 +122,7 @@ export default function TourDetailPage({ params }: TourDetailPageProps) {
 
   return (
     <>
+      <SetAlsoSee items={seoAlsoItems} />
       <div className="page-hero" style={{ height: 280 }}>
         <div
           className="page-hero-bg"
@@ -391,6 +402,10 @@ export default function TourDetailPage({ params }: TourDetailPageProps) {
           ))}
         </div>
       </section>
+
+      <div style={{ padding: "40px 5%" }}>
+        <AlsoSee items={seoAlsoItems} title="Top Trending Domestic Tour Package" />
+      </div>
     </>
   );
 }

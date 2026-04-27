@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { DESTINATIONS } from "@/data/tours";
 import { SITE_CONFIG } from "@/data/site";
+import { SetAlsoSee } from "@/components/seo/SeoContext";
 
 export const metadata: Metadata = {
   title: `Destinations | ${SITE_CONFIG.name}`,
@@ -45,6 +46,7 @@ export const metadata: Metadata = {
 export default function DestinationsPage() {
   return (
     <>
+      <SetAlsoSee items={DESTINATIONS.map((d) => d.name)} />
       <div className="page-hero" style={{ height: 280 }}>
         <div
           className="page-hero-bg"

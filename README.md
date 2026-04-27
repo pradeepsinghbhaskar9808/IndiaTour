@@ -59,6 +59,21 @@ NEXT_PUBLIC_SITE_TAGLINE
 NEXT_PUBLIC_SITE_URL
 ```
 
+Additionally the app supports these optional environment variables (set in `.env.*`):
+
+```bash
+NEXT_PUBLIC_ANALYTICS_ID
+NEXT_PUBLIC_SUPPORT_EMAIL
+NEXT_PUBLIC_SUPPORT_PHONE
+NEXT_PUBLIC_LOGO_URL
+NEXT_PUBLIC_DEFAULT_LOCALE
+NEXT_PUBLIC_DEFAULT_KEYWORDS    # comma-separated
+NEXT_PUBLIC_FOOTER_ALSO_SEE    # comma-separated list of footer links
+NEXT_PUBLIC_TWITTER
+NEXT_PUBLIC_INSTAGRAM
+NEXT_PUBLIC_FACEBOOK
+```
+
 ### 3. Start dev server
 ```bash
 npm run dev
