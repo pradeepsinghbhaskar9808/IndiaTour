@@ -6,6 +6,7 @@ import TourBookingWidget from "@/components/TourBookingWidget";
 import TourCard from "@/components/TourCard";
 import AlsoSee from "@/components/AlsoSee";
 import { SetAlsoSee } from "@/components/seo/SeoContext";
+import ItineraryShareActions from "@/components/ItineraryShareActions";
 
 export function generateStaticParams() {
   return TOURS.map((tour) => ({ id: tour.slug }));
@@ -69,12 +70,56 @@ interface TourDetailPageProps {
   params: { id: string };
 }
 
+function cleanRouteStop(value: string) {
+  return value
+    .split(/\s+(?:-|to|\u2013|\u2014|\u00e2\u20ac\u201c|\u00e2\u20ac\u201d)\s+/i)[0]
+    .replace(/\([^)]*\)/g, "")
+    .replace(/\b(arrival in|arrival at|departure from|return to|return from)\b/gi, "")
+    .replace(/\b(city highlights|morning ride|local lunch|departure|experience)\b/gi, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function getRouteStops(tour: (typeof TOURS)[number]) {
+  const titleRoute = tour.title.includes(":")
+    ? tour.title.split(":").slice(1).join(":")
+    : "";
+
+  const titleStops = titleRoute
+    .replace(/\([^)]*\)/g, "")
+    .split(/\s+-\s+|\s+to\s+/i)
+    .map(cleanRouteStop)
+    .filter(Boolean);
+
+  const itineraryStops = tour.itinerary
+    .map((step) => cleanRouteStop(step.title))
+    .filter(Boolean);
+
+  const locationStops = tour.location
+    .split(",")
+    .map(cleanRouteStop)
+    .filter(Boolean);
+
+  const source =
+    titleStops.length >= 2
+      ? titleStops
+      : itineraryStops.length >= 2
+        ? itineraryStops
+        : locationStops;
+
+  return source.filter(
+    (stop, index, list) =>
+      index === 0 || stop.toLowerCase() !== list[index - 1].toLowerCase(),
+  );
+}
+
 export default function TourDetailPage({ params }: TourDetailPageProps) {
   const tour = TOURS.find((t) => t.slug === params.id);
 
   if (!tour) notFound();
 
   const related = TOURS.filter((t) => t.id !== tour.id).slice(0, 3);
+  const routeStops = getRouteStops(tour);
   const seoAlsoItems = [
     tour.location,
     tour.country,
@@ -158,7 +203,40 @@ export default function TourDetailPage({ params }: TourDetailPageProps) {
           </div>
 
           <div className="detail-header">
-            <h2 className="detail-title">{tour.title}</h2>
+            <div className="detail-title-group">
+              <h2 className="detail-title">{tour.title}</h2>
+              <div className="tour-route-line" aria-label="Tour route">
+                <span className="tour-route-icon" aria-hidden="true">
+                  <svg
+                    width="17"
+                    height="17"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M12 21s7-4.5 7-11a7 7 0 1 0-14 0c0 6.5 7 11 7 11Z" />
+                    <circle cx="12" cy="10" r="2.5" />
+                  </svg>
+                </span>
+                <div className="tour-route-stops">
+                  {routeStops.map((stop, index) => (
+                    <span className="tour-route-stop-wrap" key={`${stop}-${index}`}>
+                      <span className="tour-route-stop">
+                        {stop}
+                      </span>
+                      {index < routeStops.length - 1 ? (
+                        <span className="tour-route-arrow" aria-hidden="true">
+                          &rarr;
+                        </span>
+                      ) : null}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
             <div className="detail-badges">
               <span className="day-badge">{tour.days} Day</span>
               <span className="night-badge">{tour.nights} Night</span>
@@ -208,7 +286,7 @@ export default function TourDetailPage({ params }: TourDetailPageProps) {
               <label htmlFor={`tab-cancellation-${tour.slug}`}>
                 Cancellation Policy
               </label>
-              <label htmlFor={`tab-upgrades-${tour.slug}`}>Upgrades</label>
+              {/* <label htmlFor={`tab-upgrades-${tour.slug}`}>Upgrades</label> */}
             </div>
 
             <div className="tour-tabs-panels">
@@ -248,6 +326,12 @@ export default function TourDetailPage({ params }: TourDetailPageProps) {
                       <strong>{tour.location}</strong>
                       <span>Route map and surrounding area</span>
                     </div>
+                    <ItineraryShareActions
+                      title={tour.title}
+                      location={tour.location}
+                      duration={tour.duration}
+                      itinerary={tour.itinerary}
+                    />
                   </div>
                 </div>
               </section>
@@ -354,7 +438,7 @@ export default function TourDetailPage({ params }: TourDetailPageProps) {
                 </div>
               </section>
 
-              <section className="tour-tab-panel tab-panel-upgrades">
+              {/* <section className="tour-tab-panel tab-panel-upgrades">
                 <div className="tab-section-head">
                   <span>Optional Add-ons</span>
                   <h3>Upgrades</h3>
@@ -380,7 +464,7 @@ export default function TourDetailPage({ params }: TourDetailPageProps) {
                     </div>
                   ))}
                 </div>
-              </section>
+              </section> */}
             </div>
           </div>
         </div>

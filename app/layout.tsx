@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     "Agra tour",
     "Jaipur tour",
     "Golden Triangle tour",
-    "Taj Mahal tour",
+    "India Tour",
     "India sightseeing tour",
     "India cultural tour",
     "India heritage tour",
