@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SITE_CONFIG } from "@/data/site";
 import { SetAlsoSee } from "@/components/seo/SeoContext";
+import WhoWeAre from "@/components/WhoWeAre";
 
 export const metadata: Metadata = {
   title: `About Us | ${SITE_CONFIG.name}`,
@@ -92,6 +93,8 @@ export default function AboutPage() {
           </h1>
         </div>
       </div>
+
+      <WhoWeAre />
 
       <div className="section" style={{ padding: "60px 5%" }}>
         <div className="content-grid" style={{ gap: 32 }}>

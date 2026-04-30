@@ -11,30 +11,27 @@ export default function AlsoSee({ items, title = "Also see" }: AlsoSeeProps) {
   const uniq = Array.from(new Set(items)).slice(0, 30);
 
   return (
-    <div className="also-see" style={{ marginTop: 28 }}>
-      <div className="section-header" style={{ marginBottom: 12 }}>
-        <div className="section-eyebrow">{title}</div>
+    <section className="also-see" aria-labelledby="also-see-title">
+      <div className="also-see-header">
+        <div>
+          <div className="section-eyebrow">Trending searches</div>
+          <h2 id="also-see-title">{title}</h2>
+        </div>
+        <span className="also-see-count">{uniq.length} packages</span>
       </div>
 
-      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+      <div className="also-see-links">
         {uniq.map((item) => (
           <Link
             key={item}
             href={`/tours?search=${encodeURIComponent(item)}`}
             className="seo-link"
-            style={{
-              padding: "6px 10px",
-              borderRadius: 6,
-              background: "#f3f4f6",
-              color: "#0f172a",
-              textDecoration: "none",
-              fontSize: 13,
-            }}
           >
-            {item}
+            <span>{item}</span>
+            {/* <small aria-hidden="true">View</small> */}
           </Link>
         ))}
       </div>
-    </div>
+    </section>
   );
 }

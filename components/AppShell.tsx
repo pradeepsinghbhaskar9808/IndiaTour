@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { SeoProvider } from "@/components/seo/SeoContext";
 import ScrollTopButton from "@/components/ScrollTopButton";
+import CookieConsent from "@/components/CookieConsent";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -22,6 +23,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             <main>{children}</main>
             <Footer />
             <ScrollTopButton />
+            <CookieConsent />
           </SeoProvider>
         </>
       )}

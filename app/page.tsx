@@ -4,6 +4,7 @@ import Link from "next/link";
 import Seo from "@/components/Seo";
 import { SetAlsoSee } from "@/components/seo/SeoContext";
 import AlsoSee from "@/components/AlsoSee";
+import WhoWeAre from "@/components/WhoWeAre";
 import TourCard from "@/components/TourCard";
 import HeroSearchBar from "@/components/HeroSearchBar";
 import { TOURS, DESTINATIONS, TESTIMONIALS } from "@/data/tours";
@@ -144,6 +145,13 @@ export default function HomePage() {
     return () => window.clearInterval(interval);
   }, [isTestimonialHovered]);
 
+  // Places to See in India: derive unique locations from tours with country === 'India'
+  const indiaPlaces = Array.from(
+    new Map(
+      TOURS.filter((t) => t.country === "India").map((t) => [t.slug, t]),
+    ).values(),
+  ).slice(0, 6);
+
   const changeDestinationSlide = (direction: number) => {
     setActiveDestination(
       (current) =>
@@ -162,7 +170,7 @@ export default function HomePage() {
         description={
           "Discover world-class travel experiences from trusted agencies around the globe. Book unforgettable tours and adventures."
         }
-        keywords={["tours", "travel", "book tours", "holiday packages", "top destinations"]}
+        keywords={["india tour","tours", "travel", "book tours", "holiday packages", "top destinations"]}
       />
       <section className="hero-section">
         <div className="hero-slider" aria-hidden="true">
@@ -206,8 +214,8 @@ export default function HomePage() {
         </div>
       </section>
       <HeroSearchBar />
-
-      <div className="section" style={{ paddingBottom: 0 }}>
+<section className="section bg-cream">
+  <div className="section" style={{ paddingBottom: 0 }}>
         <div className="promo-grid">
           {PROMOS.map((p, promoIndex) => (
             <div key={p.title} className="promo-card">
@@ -259,7 +267,34 @@ export default function HomePage() {
           ))}
         </div>
       </div>
+</section>
+      
+ {/* Places to See in India */}
+        <section className="section bg-light-green">
+          <div className="section-header">
+            <div className="section-eyebrow">Discover India</div>
+            <h2 className="section-title">Places to See in India</h2>
+          </div>
 
+          <p className="section-desc">
+            Explore a curated selection of India's most iconic destinations — from
+            the timeless Taj Mahal and vibrant markets of Jaipur to serene backwaters
+            and tropical coastlines. Handpicked tours offer authentic experiences,
+            local guides, and seamless logistics so you can focus on making memories.
+          </p>
+
+          <div className="india-places-grid">
+            {indiaPlaces.map((p) => (
+              <Link key={p.slug} href={`/tours/${p.slug}`} className="india-place-card">
+                <div className="india-place-image" style={{ backgroundImage: `url('${p.image}')` }} />
+                <div className="india-place-body">
+                  <div className="india-place-name">{p.title}</div>
+                  <div className="india-place-meta">{p.location} · {p.duration}</div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
       <section className="section">
         <div className="section-header">
           <div className="section-eyebrow">Explore the World</div>
@@ -331,9 +366,12 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Who We Are */}
+      <WhoWeAre />
+
       <section
         className="section bg-light-green"
-        style={{ margin: "0 -5%", padding: "80px 5%" }}
+        style={{  padding: "80px 5%" }}
       >
         <div className="section-header">
           <div className="section-eyebrow">Handpicked For You</div>
@@ -458,7 +496,10 @@ export default function HomePage() {
       <section className="section bg-light-green">
          {/* Also See section (visible on homepage) */}
         <AlsoSee items={ALSO_SEE_ITEMS} title="Also See" />
+     
       </section>
+
+      
     </>
   );
 }

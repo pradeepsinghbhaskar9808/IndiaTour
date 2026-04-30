@@ -267,10 +267,10 @@ export const TOURS: Tour[] = [
     price: 80,
     discount: 11,
     featured: false,
-    image: "https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=800&q=80",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHwwrrSBl_C5yGbIQtoI98tSK8BfDruS2QhQ&s",
     gallery: [
-      "https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=800&q=80",
-      "https://images.unsplash.com/photo-1505685296765-3a2736de412f?w=600&q=80",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHwwrrSBl_C5yGbIQtoI98tSK8BfDruS2QhQ&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSD3eB8VPwHv4nqUqCt7omAXoIOQIi-iREN2w&s",
     ],
     departures: ["Daily"],
     tag: "Day Trip",
